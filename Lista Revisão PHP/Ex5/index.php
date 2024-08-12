@@ -1,3 +1,14 @@
+<?php
+
+    session_start();
+
+    $resultado = '';
+    if(isset($_SESSION['resultado'])){
+        $resultado = $_SESSION['resultado'];
+        unset($_SESSION['resultado']);
+    }
+
+?>
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -16,6 +27,9 @@
         <label for="qtdParcelas">Insira o número de meses</label>
         <input type="text" name="qtdParcelas" id="qtdParcelas"><br><br>
         <input type="submit" name="botao" id="botao" value="Calcular">
+        <?php if ($resultado): ?>
+            <p>Resultado: R$ <?php echo htmlspecialchars($resultado); ?></p>
+        <?php endif; ?>
     </form>
 
 </body>

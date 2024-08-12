@@ -1,5 +1,7 @@
 <?php
 
+    session_start();
+
     if(!empty($_POST["valorEmprestimo"]) 
     && !empty($_POST["porcentJuro"])
     && !empty($_POST["qtdParcelas"])){
@@ -12,7 +14,10 @@
 
         $parcelaFormatada = number_format($parcela, 2, ',', '.');
 
-        echo "Valor da parcela: R$ $parcelaFormatada";
+        $_SESSION['resultado'] = $parcelaFormatada;
     }
+
+    header('Location: ../index.php');
+    exit();
 
 ?>

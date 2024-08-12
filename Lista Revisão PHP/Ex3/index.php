@@ -1,3 +1,14 @@
+<?php
+
+    session_start();
+
+    $resultado = '';
+    if(isset($_SESSION['resultado'])){
+        $resultado = $_SESSION['resultado'];
+        unset($_SESSION['resultado']);
+    }
+
+?>
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -14,6 +25,9 @@
         <label for="porcentagemLucro">Insira a porcentagem de lucro do produto</label>
         <input type="number" name="porcentagemLucro" id="porcentagemLucro">
         <input type="submit" id="botao" value="calcular">
+        <?php if ($resultado): ?>
+            <p>Resultado: R$ <?php echo htmlspecialchars($resultado); ?></p>
+        <?php endif; ?>
     </form>
 
 </body>

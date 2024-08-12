@@ -1,5 +1,7 @@
 <?php
 
+    session_start();
+
     $pesoLimite = 50;
     $valorMultaPor5kg = 4;
 
@@ -8,13 +10,20 @@
         $excesso = $pesoPeixe - $pesoLimite;
         
         if($excesso < 0){
-            echo "Valor da multa: R$ 0,00";
+            $string = "Valor da multa: R$ 0,00";
+            $_SESSION['resultado'] = $string;
         }
 
         else{
             $multa = ceil($excesso / 5) * $valorMultaPor5kg;
-            echo "Valor da multa: R$ {$multa}";
+            $string = "Valor da multa: R$ {$multa}";
+            $_SESSION['resultado'] = $string;
         }
+
+        
     }
+
+    header('Location: ../index.php');
+    exit();
 
 ?>

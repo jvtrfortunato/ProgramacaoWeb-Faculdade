@@ -1,3 +1,14 @@
+<?php
+
+    session_start();
+
+    $resultado = '';
+    if(isset($_SESSION['resultado'])){
+        $resultado = $_SESSION['resultado'];
+        unset($_SESSION['resultado']);
+    }
+
+?>
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -12,6 +23,9 @@
         <label for="numero">Insira um número para calcular a soma de seus digitos</label>
         <input type="text" id="numero" name="numero">
         <input type="submit" id="botao" value="calcular">
+        <?php if ($resultado): ?>
+            <p>Resultado: <?php echo htmlspecialchars($resultado); ?></p>
+        <?php endif; ?>
     </form>
 
 </body>
