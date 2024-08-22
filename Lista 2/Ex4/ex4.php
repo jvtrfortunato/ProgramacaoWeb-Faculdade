@@ -13,6 +13,10 @@ class Data {
         $this->ano = $ano;
     }
 
+    public function __toString() {
+        return $this->dia . '/' . $this->mes . '/' . $this->ano;
+    }
+
     //Gets e Sets
     public function getDia() {
         return $this->dia;
