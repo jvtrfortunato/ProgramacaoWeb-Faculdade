@@ -107,30 +107,57 @@ class Data {
         }
     }
 
-    private function diasDesdeAnoInicio() {
-        
+    public function subtrairData($dia, $mes, $ano) {
+        $dataAtual = new DateTime("$this->ano-$this->mes-$this->dia");
+
+        $dataComparacao = new DateTime("{$ano}-{$mes}-{$dia}");
+
+        $diferenca = $dataAtual->diff($dataComparacao);
+
+        return $diferenca->days;
     }
 
-    public function subtrairData($dia, $mes, $ano) {
-        if ($this->ano >= $ano) {
-            $restoAno = 
+    public function compararDatas($dia, $mes, $ano) {
+        if ($this->ano > $ano) {
+            return 1;
+        } elseif ($this->ano < $ano) {
+            return -1;
+        } else { //Anos são iguais, comparar meses
+            if ($this->mes > $mes) {
+                return 1;
+            } elseif ($this->mes < $mes) {
+                return -1;
+            } else { //Meses são iguais, comparar dias
+                if ($this->dia > $dia) {
+                    return 1;
+                } elseif ($this->dia < $dia) {
+                    return -1;
+                } else {
+                    return 0; //As datas são iguais
+                }
+            }
         }
     }
 } 
 
 $d1 = new Data();
 echo "Novo objeto Data criado com sucesso!<br>";
+$d1->setDia(10); 
+$d1->setMes(7); 
+$d1->setAno(1999);
+echo $d1->retornarData() . "<br>";
+echo $d1->ehAnoBissexto() . "<br>";
+echo $d1->compararDatas(9, 7, 1999) . "<br>";
+echo $d1->compararDatas(10, 7, 1999) . "<br>";
+echo $d1->compararDatas(11, 7, 1999) . "<br><br>";
 
-$d2 = new Data(31, 12, 2024);
+$d2 = new Data(21, 8, 2024);
 echo "Novo objeto Data criado com sucesso!<br>";
 
 $d2->incrementarDia();
 $d2->decrementarDia();
 echo $d2->retornarData() . "<br>";
 echo $d2->ehAnoBissexto() . "<br>";
-
-$d2->incrementarDia();
-echo $d2->retornarData() . "<br>";
-echo $d2->ehAnoBissexto() . "<br>";
+echo $d2->subtrairData(10, 07, 1999) . "<br>";
 
 ?>
