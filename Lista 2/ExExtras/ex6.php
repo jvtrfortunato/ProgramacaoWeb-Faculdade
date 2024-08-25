@@ -27,8 +27,10 @@ Class Estacionamento {
 
     public function liberarVaga($numVaga) {
         if ($numVaga >= 1 && $numVaga <= $this->numVagasTotais) {
-            if(in_array($numVaga, $this->vagasOcupadas)) {
-                $this->vagasOcupadas[] = array_values(array_diff($this->vagasOcupadas, [$numVaga]));
+            $key = array_search($numVaga, $this->vagasOcupadas);
+            if($key !== false) {
+                unset($this->vagasOcupadas[$key]);
+                $this->vagasOcupadas = array_values($this->vagasOcupadas);
                 return true;
             } else {
                 return false;
@@ -36,6 +38,18 @@ Class Estacionamento {
         } else {
             return false;
         }
+    }
+
+    public function getVagasDisponiveis() {
+        return $this->numVagasTotais - count($this->vagasOcupadas);
+    }
+
+    public function getNomeEstacionamento() {
+        return $this->nome;
+    }
+
+    public function getEnderecoEstacionamento() {
+        return $this->endereco;
     }
 }
 
@@ -45,7 +59,7 @@ echo "<br>";
 echo $e1->estacionarVeiculo(16);
 echo "<br>";
 echo $e1->estacionarVeiculo(9);
-echo "<br>";
+echo "<hr>";
 
 echo $e1->vagasOcupadas[0];
 echo "<br>";
@@ -55,10 +69,15 @@ echo $e1->vagasOcupadas[2];
 echo "<hr>";
 
 echo $e1->liberarVaga(16);
-echo "<br>";
+echo "<hr>";
+
 echo $e1->vagasOcupadas[0];
 echo "<br>";
 echo $e1->vagasOcupadas[1];
-echo "<br>";
-echo $e1->vagasOcupadas[2];
 echo "<hr>";
+
+echo $e1->getVagasDisponiveis();
+echo "<hr>";
+echo $e1->getNomeEstacionamento();
+echo "<hr>";
+echo $e1->getEnderecoEstacionamento();
